@@ -1,0 +1,9 @@
+{
+  "name": "riot-stx",
+  "version": "1.0.0",
+  "main": "riot-stx.js",
+  "repository": "https://github.com/klicat/riot-stx",
+  "author": "Klicat riot@klicat.com",
+  "license": "MIT",
+  "dependencies": {}
+}
