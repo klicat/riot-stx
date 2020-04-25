@@ -74,7 +74,6 @@ let riotStx = {
 				onUnmounted.apply(this, args)
 			}
 		}
-
 	},
 
 	setOneState(key, value){
