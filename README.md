@@ -1,15 +1,15 @@
-## riot_stx : Riotjs tiny state management lib
+## riot-stx : Riotjs tiny state management lib
 
 [Demo](https://plnkr.co/edit/nrU5XDKApGZZd7fb?preview)
 
 ### Usage
-include riot_stx.js 
+include riot-stx.js 
 ```shell
-<script src="./riot_stx.js"></script>
+<script src="./riot-stx.js"></script>
 <script type="text/javascript">
  let initStateObj = { counter: 10} //Initalize somme global state properties if you want
  riot.compile().then(() => {
-  riot_stx.state(initStateObj, 'my-tag') // initalize stx, and mount your root riot tag 
+  riotStx.create(initStateObj, 'my-tag') // initalize stx, and mount your root riot tag 
  }
 </script>
 ```
