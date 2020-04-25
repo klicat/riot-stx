@@ -1,5 +1,10 @@
+[![Riot logo](https://riot.js.org/img/logo/riot-logo.svg)](https://riot.js.org)
 # riot_stx
-Riotjs tiny state management lib
+## Riotjs tiny state management lib
+
+[Demo](https://plnkr.co/edit/nrU5XDKApGZZd7fb)
+
+
 DEMO :updating some keys of global state.
 You can set stx object propeties
 or use riot_stx set function
