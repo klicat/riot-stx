@@ -1,8 +1,8 @@
-let riot_stx = {
+let riotStx = {
 	cs:{},
-	state(initStateObj, rootComponentName){
-		riot_stx.installState(initStateObj)
-		riot_stx.installRiot(rootComponentName)
+	create(initStateObj, rootComponentName){
+		riotStx.installState(initStateObj)
+		riotStx.installRiot(rootComponentName)
 	},
 	
 	installState(initStateObj){
@@ -11,7 +11,7 @@ let riot_stx = {
 				if(JSON.stringify(target[key]) !== JSON.stringify(value)) {
 						target[key] = value
 						//console.log(key,target[key],value)
-						riot_stx.updateComponentsState(key,value)
+						riotStx.updateComponentsState(key,value)
 				} //else target[key] = value
 				return true
 			}
@@ -21,7 +21,7 @@ let riot_stx = {
 	},
 
 	updateComponentsState(key, value){
-		if(riot_stx.cs[key]) riot_stx.cs[key].forEach((cpt)=>
+		if(riotStx.cs[key]) riotStx.cs[key].forEach((cpt)=>
 		{
 			cpt.stx[key]=value
 			cpt.update()
@@ -31,7 +31,7 @@ let riot_stx = {
 
 	installRiot(rootComponentName){
 		riot.install(function (component) {
-			riot_stx.installRiotPlugin(component)
+			riotStx.installRiotPlugin(component)
 		})
 		if(rootComponentName) riot.mount(rootComponentName)
 	},
@@ -52,8 +52,8 @@ let riot_stx = {
 
 		component.onBeforeMount = function (...args) {
 			for (let [key, value] of Object.entries(component.stx)) if(key[0] != '_') {
-				if(!riot_stx.cs[key]) riot_stx.cs[key]=[]
-				riot_stx.cs[key].push(component)
+				if(!riotStx.cs[key]) riotStx.cs[key]=[]
+				riotStx.cs[key].push(component)
 	
 				//set initial  component state with global state if defined
 				if(typeof stx[key] !== 'undefined') {
@@ -65,9 +65,9 @@ let riot_stx = {
 			}
 		}
 		component.onUnmounted = function (...args) {
-			if(riot_stx.cs) for (var key in riot_stx.cs) {
-				riot_stx.cs[key].forEach((cpt,i)=>{
-						if(cpt === component) riot_stx.cs[key].splice(i , 1)
+			if(riotStx.cs) for (var key in riotStx.cs) {
+				riotStx.cs[key].forEach((cpt,i)=>{
+						if(cpt === component) riotStx.cs[key].splice(i , 1)
 				})
 			}
 			if (onUnmounted) {
@@ -78,12 +78,12 @@ let riot_stx = {
 	},
 
 	setOneState(key, value){
-		stx[key]=	value		
+		stx[key]=value
 	},
 
 	setState(state){
 		for (var key in state) {
-			riot_stx.setOneState(key, state[key])
+			riotStx.setOneState(key, state[key])
 		}
 	}
 }
