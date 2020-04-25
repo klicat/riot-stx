@@ -1,8 +1,6 @@
-[![Riot logo](https://riot.js.org/img/logo/riot-logo.svg)](https://riot.js.org)
-# riot_stx
-## Riotjs tiny state management lib
+## riot_stx : Riotjs tiny state management lib
 
-[Demo](https://plnkr.co/edit/nrU5XDKApGZZd7fb)
+[Demo](https://plnkr.co/edit/nrU5XDKApGZZd7fb?preview)
 
 
 DEMO :updating some keys of global state.
