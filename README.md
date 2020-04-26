@@ -12,7 +12,7 @@
 ### Usage
 include riot-stx.js 
 ```shell
-<script src="./riot-stx.js"></script>
+<script type="text/javascript" src="./riot-stx.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/riot@4/riot+compiler.min.js"></script>
 <script type="riot" src="./my-root-tag.html"></script>
 <script type="riot" src="./tag1.html"></script>
