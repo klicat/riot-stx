@@ -3,6 +3,8 @@
 [Demo 2](https://plnkr.co/edit/nrU5XDKApGZZd7fb?preview)
 
 ### Update and propagate state in your app
+- Easy to use : NO subscribing complex functions or stores or action... to define !
+- Auto-update components without to call this.update()
 - update are propagated in two ways binding : main Js <--> components
 - updating some keys of global state : You can set stx object propeties or use riotStx.setState Or riotStx.setOneState functions
 - Inside riot component you must subscribe to interested state keys : stx:{key1:'defaultValue',key2...}
