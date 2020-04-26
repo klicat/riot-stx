@@ -3,9 +3,10 @@
 [Demo](https://plnkr.co/edit/nrU5XDKApGZZd7fb?preview)
 
 ### Update and propagate state in your app
-- updating some keys of global state : You can set stx object propeties or use riotStx.setState setOneState functions
+- update are propagated in two ways binding : main Js <--> components
+- updating some keys of global state : You can set stx object propeties or use riotStx.setState Or riotStx.setOneState functions
 - Inside riot component you must subscribe to interested state keys : stx:{key1:'defaultValue',key2...}
-- In riot cycle event : just use this.stxs.key1="new val" to update each component that have subsscribed to this key
+- In riot cycle event : just use this.stxs.key1="new val" to update each component that have subscribed to this key
 
 ### Usage
 include riot-stx.js 
