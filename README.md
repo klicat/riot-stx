@@ -28,7 +28,7 @@ include riot-stx.js
  <tag2></tag2>
  <script>
   export default {
-    stx: {// by declaring stx.message it auto-subscribes to any change on it anywhere in app
+    stx: {// by declaring stx.message it auto-subscribes to any change on it
       message:null
     }
  </script>
@@ -40,7 +40,7 @@ include riot-stx.js
   <h1>{stx.message}</h1>
   <script>
     export default {
-      stx: {// by declaring stx.message it auto-subscribes to any change on it anywhere in app
+      stx: {// by declaring stx.message it auto-subscribes to any change on it
         message:'default on mount message'
       },
       onMounted(){
@@ -63,7 +63,7 @@ include riot-stx.js
   <p onclick={changMsg}>Click here to change message</p>
   <script>
     export default {
-      stx: { // by declaring stx.message it auto-subscribes to any change on it anywhere in app
+      stx: { // by declaring stx.message it auto-subscribes to any change on it
         message:'another default on mount message, could be null'
       },
       changMsg(){
