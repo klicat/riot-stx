@@ -41,8 +41,8 @@ window.riotStx=riotStx
      //Initalize some global state properties if you want (not mandatory)
      let initStateObj = { message: 'Hello world'}
      riot.compile().then(() => {
-      // initalize stx, and mount your root riot tag 
-      riotStx.create(initStateObj, 'my-root-tag')
+        riotStx.create(initStateObj)
+        riot.mount('my-root-tag')
 
       // You can update message var from your main code.
       // update will be send to all components that have subscribed to 'message'
