@@ -1,4 +1,4 @@
-let riotStx = {
+riotStx = {
 	cs:{},
 	create(initStateObj, rootComponentName){
 		riotStx.installState(initStateObj)
