@@ -10,7 +10,17 @@
 - 1.13KB
 
 ### Usage
-include riot-stx.js 
+npm i riot-stx@https://github.com/klicat/riot-stx.git
+
+
+
+- include riot-stx.js as javascript
+- or use :
+```shell
+import riot-stx
+window.riotStx=riotStx
+```
+
 ```shell
 <!DOCTYPE html>
 <html>
