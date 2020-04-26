@@ -12,27 +12,35 @@
 ### Usage
 include riot-stx.js 
 ```shell
-<script type="text/javascript" src="./riot-stx.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/riot@4/riot+compiler.min.js"></script>
-<script type="riot" src="./my-root-tag.html"></script>
-<script type="riot" src="./tag1.html"></script>
-<script type="riot" src="./tag2.html"></script>
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <script type="text/javascript" src="./riot-stx.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/riot@4/riot+compiler.min.js"></script>
+    <script type="riot" src="./my-root-tag.html"></script>
+    <script type="riot" src="./tag1.html"></script>
+    <script type="riot" src="./tag2.html"></script>
 
-    
-<script type="text/javascript">
- //Initalize somme global state properties if you want
- let initStateObj = { message: 'Hello world'}
- riot.compile().then(() => {
-  // initalize stx, and mount your root riot tag 
-  riotStx.create(initStateObj, 'my-root-tag')
-  
-  // You can update message var from your main code.
-  // update will be send to all components that have subscribed to 'message'
-  setTimeout(()=>{
-        stx.message='Another message after 40 seconds from main js'
-       },40000)
- }
-</script>
+    <my-root-tag></my-root-tag>
+
+    <script type="text/javascript">
+     //Initalize some global state properties if you want (not mandatory)
+     let initStateObj = { message: 'Hello world'}
+     riot.compile().then(() => {
+      // initalize stx, and mount your root riot tag 
+      riotStx.create(initStateObj, 'my-root-tag')
+
+      // You can update message var from your main code.
+      // update will be send to all components that have subscribed to 'message'
+      setTimeout(()=>{
+            stx.message='Another message after 30 seconds from main js'
+           },30000)
+     }
+    </script>
+  </body>
+</html>
 ```
 
 ```shell
@@ -66,7 +74,7 @@ include riot-stx.js
       onUpdated(){
        //you can even change the var in onUpdated handler !
        setTimeout(()=>{
-        this.stx.message='Another message after 10s'
+        this.stx.message='Another message after 20s'
        },20000)
       }
     }
