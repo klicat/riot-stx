@@ -21,6 +21,8 @@ import riot-stx
 window.riotStx=riotStx
 ```
 
+### Example
+
 ```shell
 <!DOCTYPE html>
 <html>
