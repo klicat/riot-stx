@@ -2,6 +2,11 @@
 
 [Demo](https://plnkr.co/edit/nrU5XDKApGZZd7fb?preview)
 
+### Update and propagate state in your app
+- updating some keys of global state : You can set stx object propeties or use riotStx.setState setOneState functions
+- Inside riot component you must subscribe to interested state keys : stx:{key1:'defaultValue',key2...}
+- In riot cycle event : just use this.stxs.key1="new val" to update each component that have subsscribed to this key
+
 ### Usage
 include riot-stx.js 
 ```shell
@@ -12,14 +17,15 @@ include riot-stx.js
  riot.compile().then(() => {
   // initalize stx, and mount your root riot tag 
   riotStx.create(initStateObj, 'my-root-tag')
+  
+  // You can update message var from your main code.
+  // update will be send to all components that have subscribed to 'message'
+  setTimeout(()=>{
+        stx.message='Another message after 40 seconds from main js'
+       },40000)
  }
 </script>
 ```
-
-### Update and propagate state in your app
-- updating some keys of global state : You can set stx object propeties or use riotStx.setState setOneState functions
-- Inside riot component you must subscribe to interested state keys : stx:{key1:'defaultValue',key2...}
-- In riot cycle event : just use this.stxs.key1="new val" to update each component that have subsscribed to this key
 
 ```shell
 <my-root-tag>
