@@ -1,6 +1,6 @@
 ## riot-stx : Riotjs tiny state management lib
-
-[Demo](https://plnkr.co/edit/nrU5XDKApGZZd7fb?preview)
+[Demo 1](https://plnkr.co/edit/LNXmFB8A62pSQkSQ?preview)
+[Demo 2](https://plnkr.co/edit/nrU5XDKApGZZd7fb?preview)
 
 ### Update and propagate state in your app
 - update are propagated in two ways binding : main Js <--> components
@@ -46,6 +46,7 @@ include riot-stx.js
       // by declaring stx.message, this component auto-subscribes to any change on it
       message:null
     }
+  }
  </script>
 </my-root-tag>
 ```
