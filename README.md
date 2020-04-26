@@ -6,9 +6,9 @@
 - Easy to use : NO subscribing complex functions or stores or action... to define !
 - Auto-update components without to call this.update()
 - update are propagated in two ways binding : main Js <--> components
-- to update key of global state, use stx.mykey='something' or use riotStx.setState(objectStateToDeepMerge) Or riotStx.setOneState(key, value) 
 - Inside riot component you must subscribe to interested state keys in the definition of component. Just use  stx:{key1:'defaultValue',key2...} It's all.
 - In riot cycle event : just use this.stxs.key1="new val" to update each component that have subscribed to this key (no need to call this.update() )
+- to update key of global state, use stx.mykey='something' or use riotStx.setState(objectStateToDeepMerge) Or riotStx.setOneState(key, value) 
 - 1.13KB
 
 ### Usage
