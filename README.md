@@ -41,11 +41,11 @@ window.riotStx=riotStx
 
     <script type="text/javascript">
      //Initalize some global state properties if you want (not mandatory)
-     let initStateObj = { message: 'Hello world'}
+     let initStxObj = { message: 'Hello world'}
      riot.compile().then(() => {
      
         //The magic is here
-        riotStx.create(initStateObj)
+        riotStx.create(initStxObj)
         // end of magic (-;
         
         riot.mount('my-root-tag')
