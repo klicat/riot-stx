@@ -10,9 +10,14 @@ riotStx = {
 	installState(...initStateObj){
 		stx = new Proxy({}, {
 			set: function setState(target, key, value) {
-				if(JSON.stringify(target[key]) !== JSON.stringify(value)) {
+				if(key[0] != '_' && JSON.stringify(target[key]) !== JSON.stringify(value)) {
 						target[key] = value
-						riotStx.updateComponentsState(key,value)
+						if(riotStx.cs[key])riotStx.cs[key].forEach((cpt)=>
+						{
+							cpt.stx[key]=value
+							cpt.update()
+						})
+						window.dispatchEvent(new CustomEvent('stx_' + key, {[key]:value,updatedState:key}))
 				}
 				return true
 			}
@@ -23,23 +28,16 @@ riotStx = {
 		})
 	},
 
-	updateComponentsState(key, value){
-		if(riotStx.cs[key]) riotStx.cs[key].forEach((cpt)=>
-		{
-			cpt.stx[key]=value
-			cpt.update()
-		})
-	},
-
 	installRiotPlugin(component){
 		//store the original call if exists
 		const { onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } = component
 
 			component.stx = new Proxy(component.stx || {}, {
 				set: function setState(target, key, value) {
-					if(typeof component.stx[key] !=='undefined' && JSON.stringify(target[key]) !== JSON.stringify(value)) {
+					if(key[0] != '_' && typeof component.stx[key] !=='undefined' && JSON.stringify(target[key]) !== JSON.stringify(value)) {
 						target[key] = value
 						stx[key]=value
+						window.dispatchEvent(new CustomEvent('stx_' + key, {[key]:value,updatedState:key}))
 					} else target[key] = value
 					return true
 				}
