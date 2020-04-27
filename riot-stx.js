@@ -1,13 +1,6 @@
 let riotStx = {
 	cs:{},
-	create(initStateObj, rootComponentName){
-		this.installState(initStateObj)
-		riot.install(function (component) {
-			this.installRiotPlugin(component)
-		}.bind(this))
-	},
-	
-	installState(...initStateObj){
+	create(...initStateObj){
 		stx = new Proxy({}, {
 			set: function setState(target, key, value) {
 				if(JSON.stringify(target[key]) !== JSON.stringify(value)) {
@@ -31,7 +24,7 @@ let riotStx = {
 		})
 	},
 
-	installRiotPlugin(component){
+	riotPlugin(component){
 		//store the original call if exists
 		const { onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } = component
 
