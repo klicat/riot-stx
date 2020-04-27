@@ -46,9 +46,6 @@ window.riotStx=riotStx
      
         //The magic is here
         riotStx.create(initStateObj)
-        riot.install(function (component) {
-		      riotStx.riotPlugin(component)
-        })
         // end of magic (-;
         
         riot.mount('my-root-tag')
