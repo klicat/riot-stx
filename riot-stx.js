@@ -1,34 +1,41 @@
-let riotStx = {
+riotStx = {
 	cs:{},
-	create(...initStateObj){
+	create(initStateObj, rootComponentName){
+		riotStx.installState(initStateObj)
+		riot.install(function (component) {
+			riotStx.installRiotPlugin(component)
+		})
+	},
+	
+	installState(...initStateObj){
 		stx = new Proxy({}, {
 			set: function setState(target, key, value) {
 				if(JSON.stringify(target[key]) !== JSON.stringify(value)) {
 						target[key] = value
-						this.updateComponentsState(key,value)
+						riotStx.updateComponentsState(key,value)
 				}
 				return true
-			}.bind(this)
+			}
 		})
 		//Init global state with initStateObj
 		initStateObj.forEach(arg => {
-			this.deepExtend(stx, stx, arg)
+			riotStx.deepExtend(stx, stx, arg)
 		})
 	},
 
 	updateComponentsState(key, value){
-		if(this.cs[key]) this.cs[key].forEach((cpt)=>
+		if(riotStx.cs[key]) riotStx.cs[key].forEach((cpt)=>
 		{
 			cpt.stx[key]=value
 			cpt.update()
 		})
 	},
 
-	riotPlugin(component){
+	installRiotPlugin(component){
 		//store the original call if exists
 		const { onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } = component
 
-			component.stx = new Proxy(component.stx, {
+			component.stx = new Proxy(component.stx || {}, {
 				set: function setState(target, key, value) {
 					if(typeof component.stx[key] !=='undefined' && JSON.stringify(target[key]) !== JSON.stringify(value)) {
 						target[key] = value
@@ -40,8 +47,8 @@ let riotStx = {
 
 		component.onBeforeMount = function (...args) {
 			for (let [key, value] of Object.entries(component.stx)) if(key[0] != '_') {
-				if(!this.cs[key]) riotStx.cs[key]=[]
-				this.cs[key].push(component)
+				if(!riotStx.cs[key]) riotStx.cs[key]=[]
+				riotStx.cs[key].push(component)
 	
 				//set initial  component state with global state if defined
 				if(typeof stx[key] !== 'undefined') {
@@ -51,11 +58,11 @@ let riotStx = {
 			if (onBeforeMount) {
 				onBeforeMount.apply(this, args)
 			}
-		}.bind(this)
+		}
 		component.onUnmounted = function (...args) {
-			if(this.cs) for (var key in riotStx.cs) {
-				this.cs[key].forEach((cpt,i)=>{
-						if(cpt === component) this.cs[key].splice(i , 1)
+			if(riotStx.cs) for (var key in riotStx.cs) {
+				riotStx.cs[key].forEach((cpt,i)=>{
+						if(cpt === component) riotStx.cs[key].splice(i , 1)
 				})
 			}
 			if (onUnmounted) {
@@ -69,7 +76,7 @@ let riotStx = {
 	},
 
 	setState(state){
-		this.deepExtend(stx, stx, state)
+		riotStx.deepExtend(stx, stx, state)
 	},
 	
 	deepExtend(out) {
@@ -84,7 +91,7 @@ let riotStx = {
 						if(obj[key] instanceof Array == true)
 							out[key] = obj[key].slice(0)
 						else
-							out[key] = deepExtend(out[key], obj[key])
+							out[key] = riotStx.deepExtend(out[key], obj[key])
 					}
 					else
 						out[key] = obj[key]
