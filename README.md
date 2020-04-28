@@ -1,6 +1,6 @@
 ## riot-stx : Riotjs tiny state management lib
-[Demo 1](https://plnkr.co/edit/LNXmFB8A62pSQkSQ?preview)
-[Demo 2](https://plnkr.co/edit/nrU5XDKApGZZd7fb?preview)
+[Demo 1](https://plnkr.co/edit/QGI1Pl4lTKozi9Nj?preview)
+[Demo 2](https://plnkr.co/edit/xdaHgaANG5E84F8F?preview)
 
 ### Update and propagate state in your app
 - Easy to use : NO subscribing complex functions or stores or action... to define !
@@ -9,7 +9,8 @@
 - Inside riot component you must subscribe to interested state keys in the definition of component. Just use  stx:{key1:'defaultValue',key2...} It's all.
 - In riot cycle event : just use this.stxs.key1="new val" to update each component that have subscribed to this key (no need to call this.update() )
 - to update key of global state, use stx.mykey='something' or use riotStx.setState(objectStateToDeepMerge) Or riotStx.setOneState(key, value) 
-- 1.28KB
+- Set riotStx.useStxLocalToInitGlobalStx to true if you prefer that the first meet of an stx.key in component declaration auto-set the global stx.
+- 1.47KB
 
 ### Usage
 npm i riot-stx@https://github.com/klicat/riot-stx.git
