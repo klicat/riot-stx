@@ -11,13 +11,13 @@ riotStx = {
 		stx = new Proxy({}, {
 			set: function setState(target, key, value) {
 				if(key[0] != '_' && JSON.stringify(target[key]) !== JSON.stringify(value)) {
-						target[key] = value
-						if(riotStx.cs[key])riotStx.cs[key].forEach((cpt)=>
-						{
-							cpt.stx[key]=value
-							cpt.update()
-						})
-						window.dispatchEvent(new CustomEvent('stx_' + key, {[key]:value,updatedState:key}))
+					target[key] = value
+					if(riotStx.cs[key])riotStx.cs[key].forEach((cpt)=>
+					{
+						cpt.stx[key]=value
+						cpt.update()
+					})
+					window.dispatchEvent(new CustomEvent('stx_' + key, {[key]:value,updatedState:key}))
 				}
 				return true
 			}
@@ -60,7 +60,7 @@ riotStx = {
 		component.onUnmounted = function (...args) {
 			if(riotStx.cs) for (var key in riotStx.cs) {
 				riotStx.cs[key].forEach((cpt,i)=>{
-						if(cpt === component) riotStx.cs[key].splice(i , 1)
+					if(cpt === component) riotStx.cs[key].splice(i , 1)
 				})
 			}
 			if (onUnmounted) {
@@ -81,18 +81,13 @@ riotStx = {
 		out = out || {}
 		for (var i = 1; i < arguments.length; i++) {
 			var obj = arguments[i]
-			if (!obj)
-				continue
+			if (!obj) continue
 			for (var key in obj) {
 				if (obj.hasOwnProperty(key)) {
 					if (typeof obj[key] === 'object'){
-						if(obj[key] instanceof Array == true)
-							out[key] = obj[key].slice(0)
-						else
-							out[key] = riotStx.deepExtend(out[key], obj[key])
-					}
-					else
-						out[key] = obj[key]
+						if(obj[key] instanceof Array == true) out[key] = obj[key].slice(0)
+						else out[key] = riotStx.deepExtend(out[key], obj[key])
+					} else	out[key] = obj[key]
 				}
 			}
 		}
