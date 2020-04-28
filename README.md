@@ -5,7 +5,7 @@
 ### Update and propagate state in your app
 - Easy to use : NO subscribing complex functions or stores or action... to define !
 - Auto-update components without to call this.update()
-- update are propagated in two ways binding : main Js (stat object) <--> components (stx object)
+- update are propagated in two ways binding : main Js (state object) <--> components (stx object)
 - Inside components, use object 'stx'. Outside of components use object 'state'
 - Inside riot component you must subscribe to interested state keys in the definition of component. Just use  stx:{key1:'defaultValue',key2...} It's all.
 - In riot cycle event : just use this.stx.key1="new val" to update each component that have subscribed to this key (no need to call this.update() )
