@@ -6,10 +6,11 @@
 - Easy to use : NO subscribing complex functions or stores or action... to define !
 - Auto-update components without to call this.update()
 - update are propagated in two ways binding : main Js <--> components
+- Inside components, use object 'stx'. Outside of components use object 'state'
 - Inside riot component you must subscribe to interested state keys in the definition of component. Just use  stx:{key1:'defaultValue',key2...} It's all.
 - In riot cycle event : just use this.stxs.key1="new val" to update each component that have subscribed to this key (no need to call this.update() )
-- to update key of global state, use stx.mykey='something' or use riotStx.setState(objectStateToDeepMerge) Or riotStx.setOneState(key, value) 
-- Set riotStx.useStxLocalToInitGlobalStx to true if you prefer that the first meet of an stx.key in component declaration auto-set the global stx.
+- to update key of global state, use state.mykey='something' or use riotStx.setState(objectStateToDeepMerge) Or riotStx.setOneState(key, value) 
+- Set riotStx.useStxLocalToInitGlobalStx to true if you prefer that the first meet of an stx.key in component declaration auto-set the global state.
 - 1.47KB
 
 ### Usage
@@ -54,7 +55,7 @@ window.riotStx=riotStx
       // You can update message var from your main code.
       // update will be send to all components that have subscribed to 'message'
       setTimeout(()=>{
-            stx.message='Another message after 30 seconds from main js'
+            state.message='Another message after 30 seconds from main js'
            },30000)
      }
     </script>
