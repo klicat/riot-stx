@@ -1,27 +1,27 @@
 riotStx = {
 	useStxLocalToInitGlobalStx:false,
 	create(...initStateObjs){
-		riotStx.installState(...initStateObjs)
+		riotStx.installState(initStateObjs)
 		riot.install(function (component) {
 			riotStx.installRiotPlugin(component)
 		})
 	},
 	
-	installState(...initStateObjs){
+	installState(initStateObjs){
 		//create a handler on set operation on global state
-		stx = new Proxy({}, {
+		state = new Proxy({}, {
 			set: function (target, key, value) {
 				if(key[0] != '_' && JSON.stringify(target[key] || null) !== JSON.stringify(value)) {
 					target[key] = value
-					window.dispatchEvent(new CustomEvent('stx_' + key, {detail: {key:key,value:value}}))
+					window.dispatchEvent(new CustomEvent('state_' + key, {detail: {key:key,value:value}}))
 				}
 				return true
 			}
 		})
 		//Init global state with initStateObjs
-		initStateObjs.forEach(arg => {
-			riotStx.deepExtend(stx, stx, arg)
-			//stx = Object.assign(stx, arg)
+		initStateObjs.forEach(stateToSet => {
+			riotStx.deepExtend(state, state, stateToSet)
+			//state = Object.assign(state, arg)
 		})
 	},
 
@@ -39,7 +39,7 @@ riotStx = {
 			set: function(target, key, value) {
 				if(key[0] != '_' && JSON.stringify(target[key]) !== JSON.stringify(value)) {
 					target[key] = value
-					stx[key]=value
+					state[key]=value
 				} else target[key] = value
 				return true
 			}
@@ -49,10 +49,10 @@ riotStx = {
 		component.onBeforeMount = function (...args) {
 			for (let [key, value] of Object.entries(component.stx)) if(key[0] != '_') {
 				//set initial  component state with global state if defined
-				if(typeof stx[key] !== 'undefined') {
-					component.stx[key]=stx[key]
-				} else if(riotStx.useStxLocalToInitGlobalStx) stx[key]=component.stx[key]
-				window.addEventListener('stx_' + key, component.updateState)
+				if(typeof state[key] !== 'undefined') {
+					component.stx[key]=state[key]
+				} else if(riotStx.useStxLocalToInitGlobalStx) state[key]=component.stx[key]
+				window.addEventListener('state_' + key, component.updateState)
 			}
 			if (onBeforeMount) {
 				onBeforeMount.apply(this, args)
@@ -61,7 +61,7 @@ riotStx = {
 		component.onUnmounted = function (...args) {
 			for (let [key, value] of Object.entries(component.stx)) {
 				if(key[0] != '_') {
-					window.removeEventListener('stx_' + key, component.updateState)
+					window.removeEventListener('state_' + key, component.updateState)
 				}
 			}
 			if (onUnmounted) {
@@ -77,12 +77,12 @@ riotStx = {
 	},
 	
 	setOneState(key,value){
-		stx[key]=value
+		state[key]=value
 	},	
 	
 	setState(stateToSet){
-		riotStx.deepExtend(stx, stx, stateToSet)
-		//stx = Object.assign(stx, stateToSet)
+		riotStx.deepExtend(state, state, stateToSet)
+		//state = Object.assign(state, stateToSet)
 	},
 	
 	deepExtend(out) {
