@@ -8,7 +8,7 @@
 - update are propagated in two ways binding : main Js <--> components
 - Inside components, use object 'stx'. Outside of components use object 'state'
 - Inside riot component you must subscribe to interested state keys in the definition of component. Just use  stx:{key1:'defaultValue',key2...} It's all.
-- In riot cycle event : just use this.stxs.key1="new val" to update each component that have subscribed to this key (no need to call this.update() )
+- In riot cycle event : just use this.stx.key1="new val" to update each component that have subscribed to this key (no need to call this.update() )
 - to update key of global state, use state.mykey='something' or use riotStx.setState(objectStateToDeepMerge) Or riotStx.setOneState(key, value) 
 - Set riotStx.useStxLocalToInitGlobalStx to true if you prefer that the first meet of an stx.key in component declaration auto-set the global state.
 - 1.47KB
