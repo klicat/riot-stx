@@ -1,4 +1,5 @@
 riotStx = {
+	useStxLocalToInitGlobalStx:false,
 	create(...initStateObjs){
 		riotStx.installState(...initStateObjs)
 		riot.install(function (component) {
@@ -50,7 +51,7 @@ riotStx = {
 				//set initial  component state with global state if defined
 				if(typeof stx[key] !== 'undefined') {
 					component.stx[key]=stx[key]
-				} else stx[key]=component.stx[key]
+				} else if(riotStx.useStxLocalToInitGlobalStx) stx[key]=component.stx[key]
 				window.addEventListener('stx_' + key, component.updateState)
 			}
 			if (onBeforeMount) {
@@ -66,6 +67,12 @@ riotStx = {
 			if (onUnmounted) {
 				onUnmounted.apply(this, args)
 			}
+		}
+		component.setState = function (stateToSet){
+			riotStx.setState(stateToSet)
+		}
+		component.setOneState = function (stateToSet){
+			riotStx.setState(stateToSet)
 		}
 	},
 	
