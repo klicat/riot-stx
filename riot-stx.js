@@ -84,7 +84,11 @@ riotStx = {
 		riotStx.deepExtend(state, state, stateToSet)
 		//state = Object.assign(state, stateToSet)
 	},
-	
+
+	subscribe(key,callback){
+		window.addEventListener('state_' + key, (ev=>{callback(ev.detail)}))
+	},
+
 	deepExtend(out) {
 		out = out || {}
 		for (var i = 1; i < arguments.length; i++) {
