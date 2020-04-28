@@ -32,16 +32,16 @@ riotStx = {
 		//store the original call if exists
 		const { onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } = component
 
-			component.stx = new Proxy(component.stx || {}, {
-				set: function setState(target, key, value) {
-					if(key[0] != '_' && typeof component.stx[key] !=='undefined' && JSON.stringify(target[key]) !== JSON.stringify(value)) {
-						target[key] = value
-						stx[key]=value
-						window.dispatchEvent(new CustomEvent('stx_' + key, {[key]:value,updatedState:key}))
-					} else target[key] = value
-					return true
-				}
-			})
+		component.stx = new Proxy(component.stx || {}, {
+			set: function setState(target, key, value) {
+				if(key[0] != '_' && typeof component.stx[key] !=='undefined' && JSON.stringify(target[key]) !== JSON.stringify(value)) {
+					target[key] = value
+					stx[key]=value
+					window.dispatchEvent(new CustomEvent('stx_' + key, {[key]:value,updatedState:key}))
+				} else target[key] = value
+				return true
+			}
+		})
 
 		component.onBeforeMount = function (...args) {
 			for (let [key, value] of Object.entries(component.stx)) if(key[0] != '_') {
