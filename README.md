@@ -46,7 +46,7 @@ window.riotStx=riotStx
      let initStateObj = { message: 'Hello world'}
      riot.compile().then(() => {
      
-        //The magic is here
+        //The magic is here, it setups all listener and create the global 'state' object (named 'stx' in component)
         riotStx.create(initStateObj)
         // end of magic (-;
         
