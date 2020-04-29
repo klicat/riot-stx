@@ -10,8 +10,8 @@
 - Inside riot component you must subscribe to interested state keys in the definition of component. Just use  stx:{key1:'defaultValue',key2...} It's all.
 - In riot cycle event : just use this.stx.key1="new val" to update each component that have subscribed to this key (no need to call this.update() )
 - to update key of global state, use state.mykey='something' or use riotStx.setState(objectStateToDeepMerge) Or riotStx.setOneState(key, value) 
-- Use riotStx.subscribe('myKey',callback) to subscribe to an update on 'myKey' and call your own callback({key:'myKey',value:'myValue'}
-- Set riotStx.useStxLocalToInitGlobalStx to true if you prefer that the first meet of an stx.key in component declaration auto-set the global state with this default value
+- Use riotStx.subscribeState('myKey',callback) to subscribe to an update on 'myKey' and call your own callback({key:'myKey',value:'myValue'}
+- Call riotStx.optionsState(true)  if you prefer that the first meet of an stx.key in component declaration auto-set the global state with this default value
 - 1.47KB
 
 ### Usage
@@ -48,7 +48,7 @@ window.riotStx=riotStx
      riot.compile().then(() => {
      
         //The magic is here, it setups all listener and create the global 'state' object (named 'stx' in component)
-        riotStx.create(initStateObj)
+        riotStx.initState(initStateObj)
         // end of magic (-;
         
         riot.mount('my-root-tag')
