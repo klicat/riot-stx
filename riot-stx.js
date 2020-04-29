@@ -1,13 +1,11 @@
 riotStx = {
-	useStxLocalToInitGlobalStx:false,
-	create(...initStateObjs){
-		riotStx.installState(initStateObjs)
-		riot.install(function (component) {
-			riotStx.installRiotPlugin(component)
-		})
+	useStxLocal:false,
+	optionsState(useStxLocal){
+		this.useStxLocal=useStxLocal
 	},
 	
-	installState(initStateObjs){
+	initState(...initStateObjs){
+		let me=this
 		//create a handler on set operation on global state
 		state = new Proxy({}, {
 			set: function (target, key, value) {
@@ -20,12 +18,16 @@ riotStx = {
 		})
 		//Init global state with initStateObjs
 		initStateObjs.forEach(stateToSet => {
-			riotStx.deepExtend(state, state, stateToSet)
+			me.deepExtendState(stateToSet)
 			//state = Object.assign(state, arg)
+		})
+		riot.install(function (component) {
+			me.riotPluginState(component)
 		})
 	},
 
-	installRiotPlugin(component){
+	riotPluginState(component){
+		let me=this
 		//store the original call if exists
 		const { onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } = component
 
@@ -51,7 +53,7 @@ riotStx = {
 				//set initial  component state with global state if defined
 				if(typeof state[key] !== 'undefined') {
 					component.stx[key]=state[key]
-				} else if(riotStx.useStxLocalToInitGlobalStx) state[key]=component.stx[key]
+				} else if(me.useStxLocal) state[key]=component.stx[key]
 				window.addEventListener('state_' + key, component.updateState)
 			}
 			if (onBeforeMount) {
@@ -69,10 +71,10 @@ riotStx = {
 			}
 		}
 		component.setState = function (stateToSet){
-			riotStx.setState(stateToSet)
+			me.setState(stateToSet)
 		}
 		component.setOneState = function (stateToSet){
-			riotStx.setState(stateToSet)
+			me.setState(stateToSet)
 		}
 	},
 	
@@ -81,28 +83,14 @@ riotStx = {
 	},	
 	
 	setState(stateToSet){
-		riotStx.deepExtend(state, state, stateToSet)
-		//state = Object.assign(state, stateToSet)
+		this.deepExtendState(stateToSet)
 	},
 
-	subscribe(key,callback){
+	subscribeState(key,callback){
 		window.addEventListener('state_' + key, (ev=>{callback(ev.detail)}))
 	},
 
-	deepExtend(out) {
-		out = out || {}
-		for (var i = 1; i < arguments.length; i++) {
-			var obj = arguments[i]
-			if (!obj) continue
-			for (var key in obj) {
-				if (obj.hasOwnProperty(key)) {
-					if (typeof obj[key] === 'object'){
-						if(obj[key] instanceof Array == true) out[key] = obj[key].slice(0)
-						else out[key] = riotStx.deepExtend(out[key], obj[key])
-					} else	out[key] = obj[key]
-				}
-			}
-		}
-		return out
+	deepExtendState(ext) {
+		Object.assign(state,ext)
 	}
 }
