@@ -17,9 +17,11 @@
 ### Usage
 npm i riot-stx@https://github.com/klicat/riot-stx.git
 
+### CDN
+https://cdn.jsdelivr.net/gh/klicat/riot-stx/riot-stx.min.js
 
-
-- include riot-stx.js as javascript
+### Import
+- include riot-stx.js as javascript 
 - or use :
 ```shell
 import riot-stx
@@ -34,7 +36,7 @@ window.riotStx=riotStx
   <head>
   </head>
   <body>
-    <script type="text/javascript" src="./riot-stx.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/klicat/riot-stx/riot-stx.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/riot@4/riot+compiler.min.js"></script>
     <script type="riot" src="./my-root-tag.html"></script>
     <script type="riot" src="./tag1.html"></script>
